@@ -9,13 +9,9 @@
       "use": "@vercel/static"
     }
   ],
-  
-    "routes": [
-      { "src": "/products", "dest": "index.js" },
-      { "src": "/products/(.*)", "dest": "index.js" },
-      { "src": "/", "dest": "dist/index.html" },
-      { "src": "/(.+)", "dest": "dist/$1" }
-    ]
-  
-  
+  "routes": [
+    { "src": "/api/(.*)", "dest": "index.js" },
+    { "src": "/", "dest": "dist/index.html" },
+    { "src": "/(.*)", "dest": "dist/$1" }
+  ]
 }
