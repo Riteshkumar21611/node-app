@@ -10,7 +10,7 @@ const path = require("path");
 main().catch((err) => console.log("Database connection error:", err));
 
 async function main() {
-  await mongoose.connect(process.env.URL);
+  await mongoose.connect(process.env.MONGODB_URL);
   console.log("Connected to the database");
 }
 
