@@ -19,7 +19,7 @@ server.use(cors());
 server.use(express.json());
 
 // Routers
-server.use("/api/products", productRouter);
+server.use("/products", productRouter);
 // Serve static files
 server.use(express.static(path.resolve(__dirname, process.env.PUBLIC_DIR)));
 
