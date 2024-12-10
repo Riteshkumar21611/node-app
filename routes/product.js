@@ -5,6 +5,8 @@ const productRouter = express.Router();
 
 productRouter
   .get("/", productController.getAll)
+  .get('/ssr',productController.getProductSSR)
+  .get('/ssr/form',productController.getFormSSR)
   .get("/:id", productController.getById)
   .post("/", productController.create)
   .put("/:id", productController.replace)

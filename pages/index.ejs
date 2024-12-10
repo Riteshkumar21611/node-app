@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Card</title>
+  </head>
+  <script>
+    async function deleteProduct(productId) {
+      try {
+        const response = await fetch(`/products/${productId}`, {
+          method: "DELETE",
+        });
+
+        if (response) {
+          const result = await response.json();
+          const el = document.getElementById(result?.data?._id);
+          el.remove();
+        }
+      } catch (error) {
+        console.error("Delete failed:", error);
+      }
+    }
+  </script>
+  <body
+    style="
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f9;
+      margin: 0;
+    "
+  >
+    <% for(let product of products){ %> <% if (product) { %>
+    <div
+      id="<%= product._id %>"
+      style="
+        width: 300px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background: white;
+        margin: 10px;
+      "
+    >
+      <img
+        src="<%= product.image %>"
+        alt="Product Image"
+        style="width: 50%; height: auto; margin: 0 auto; display: block"
+      />
+
+      <div style="padding: 16px">
+        <h2
+          style="
+            margin: 0 0 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+          "
+        >
+          <%= product.title %>
+        </h2>
+        <p style="margin: 0 0 16px; font-size: 14px; color: #555">
+          <%= product.description %>
+        </p>
+        <p
+          style="margin: 0; font-size: 16px; font-weight: bold; color: #4caf50"
+        >
+          $<%= product.price ? product.price.toFixed(2) : "N/A" %>
+        </p>
+        <button
+          style="
+            margin-top: 16px;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #c41d23;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+          "
+          onclick="deleteProduct('<%= product._id  %>')"
+        >
+          delete product
+        </button>
+      </div>
+    </div>
+    <% } %> <% } %>
+  </body>
+</html>

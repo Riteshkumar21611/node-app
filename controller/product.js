@@ -1,5 +1,42 @@
 const model = require("../model/product");
 const Product = model.Product;
+const ejs = require("ejs");
+const path = require("path");
+exports.getProductSSR = async (req,res) => {
+  try {
+    const products = await Product.find();
+    ejs.renderFile(
+      path.resolve(__dirname, "../pages/index.ejs"),
+      { products: products},
+      function (err, str) {
+        if (err) {
+          console.error("EJS render error:", err);
+          return res.status(500).send("Server error.");
+        }
+        res.send(str);
+      }
+    );
+    
+  } catch (err) {
+    console.log(err.message,`,<<<<<<<<<<<<<<<<<<`)
+  }
+};
+
+exports.getFormSSR=async(req,res)=>{
+  ejs.renderFile(
+    path.resolve(__dirname, "../pages/add.ejs"),
+   
+    function (err, str) {
+      if (err) {
+        console.error("EJS render error:", err);
+        return res.status(500).send("Server error.");
+      }
+      res.send(str);
+    }
+  );
+
+
+}
 
 // CREATE
 exports.create = async (req, res) => {
